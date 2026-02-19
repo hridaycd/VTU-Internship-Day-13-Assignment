@@ -1,0 +1,208 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Smart City Tourism Information Portal — Visit SmartCity</title>
+  <meta name="description" content="Smart City Tourism Portal with attractions, maps, events, and visitor info for SmartCity.">
+  <meta name="keywords" content="smart city,tourism,visit,attractions,map,travel,events">
+  <meta name="author" content="Smart City Team">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="/" target="_blank">
+  <style>
+    :root{--accent:#0b6efd;--muted:#666;--bg:#f7f9fc}
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,Arial,sans-serif;margin:0;background:var(--bg);color:#222}
+    header{background:linear-gradient(90deg,#0b6efd22,transparent);padding:16px 20px;display:flex;align-items:center;gap:16px}
+    header img.logo{width:64px;height:64px;border-radius:8px}
+    header .brand{flex:1}
+    header h1{margin:0;font-size:1.4rem}
+    header p.tagline{margin:2px 0 0;color:var(--muted)}
+    nav.mainnav{display:flex;gap:12px}
+    nav a{color:var(--accent);text-decoration:none;padding:8px;border-radius:6px}
+    nav a:hover{background:#e6f0ff}
+
+    main.container{display:grid;grid-template-columns:1fr 300px;gap:20px;padding:20px;max-width:1200px;margin:16px auto}
+    /* Responsive stack */
+    @media (max-width:900px){main.container{grid-template-columns:1fr}}
+
+    section{background:#fff;padding:16px;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+    .about article p{line-height:1.5}
+    .facts{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+    .fact{background:#f1f6ff;padding:8px;border-radius:6px;color:var(--accent);font-weight:600}
+
+    .attractions-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .place{display:flex;flex-direction:column}
+    .place img{width:100%;height:140px;object-fit:cover;border-radius:6px}
+    .place h3{margin:8px 0 6px;font-size:1rem}
+    .place p{margin:0;color:var(--muted);font-size:0.95rem}
+
+    .iframed{width:100%;height:360px;border:0;border-radius:6px}
+    iframe.no-border{border:0}
+
+    .map-links{display:flex;flex-direction:row;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .map-links a{background:#eef6ff;padding:6px 8px;border-radius:6px;color:var(--accent);text-decoration:none}
+
+    aside.sidebar{display:flex;flex-direction:column;gap:12px}
+    .card{padding:12px;background:#fff;border-radius:8px}
+    footer{padding:12px 20px;text-align:center;color:var(--muted)}
+
+    /* Canvas style */
+    #welcomeCanvas{display:block;width:100%;height:auto;border:3px solid #222;margin-top:12px;border-radius:6px}
+
+    /* small utility */
+    .small{font-size:0.9rem;color:var(--muted)}
+  </style>
+  <script>
+    // Canvas drawing for welcome banner
+    function initCanvas(){
+      const c=document.getElementById('welcomeCanvas');
+      if(!c) return;
+      // set real pixel size for crispness
+      const w = c.width, h = c.height;
+      const ctx = c.getContext('2d');
+      // background rectangle
+      ctx.fillStyle = '#0b6efd';
+      ctx.fillRect(0,0,w,h);
+      // gradient bar
+      const grad = ctx.createLinearGradient(0,0,w,0);
+      grad.addColorStop(0,'#00c6ff');
+      grad.addColorStop(1,'#0072ff');
+      ctx.fillStyle = grad;
+      ctx.fillRect(8,8,w-16, h/2 - 8);
+      // welcome text
+      ctx.font = '28px Georgia, serif';
+      ctx.fillStyle = '#fff';
+      ctx.fillText('Welcome to Smart City', 20, 48);
+      // statistics colored shape
+      ctx.beginPath();
+      ctx.fillStyle = 'rgba(255,255,255,0.12)';
+      ctx.arc(w-90, h/2 + 10, 36, 0, Math.PI*2);
+      ctx.fill();
+      // small caption
+      ctx.font='16px Arial'; ctx.fillStyle='#fff';
+      ctx.fillText('Explore attractions • Events • Maps', 20, h-20);
+    }
+    document.addEventListener('DOMContentLoaded', initCanvas);
+  </script>
+</head>
+<body>
+  <header>
+    <img class="logo" src="https://via.placeholder.com/80x80.png?text=Logo" alt="City Logo">
+    <div class="brand">
+      <h1>SmartCity — Visitor Information Portal</h1>
+      <p class="tagline">Discover attractions, maps, events and emergency info at a glance.</p>
+    </div>
+    <nav class="mainnav" aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#attractions">Attractions</a>
+      <a href="#map">Map</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div>
+      <section id="home">
+        <article class="about">
+          <h2>About SmartCity</h2>
+          <p>SmartCity is a forward-thinking urban destination combining culture, technology and green spaces. Visitors can enjoy museums, parks, culinary districts and a lively events calendar.</p>
+          <div class="facts">
+            <div class="fact">Population: 1.2M</div>
+            <div class="fact">Area: 450 km²</div>
+            <div class="fact">Known For: Tech hubs & parks</div>
+          </div>
+          <details style="margin-top:12px">
+            <summary>History</summary>
+            <p class="small">Founded as a trade town centuries ago, SmartCity rapidly modernized and now blends historic districts with new infrastructure.</p>
+          </details>
+          <details>
+            <summary>Culture</summary>
+            <p class="small">A vibrant arts scene, museums, multicultural festivals and food markets.</p>
+          </details>
+          <details>
+            <summary>Climate</summary>
+            <p class="small">Temperate climate with warm summers and cool winters — pack layers and sunscreen.</p>
+          </details>
+        </article>
+      </section>
+
+      <section id="attractions" style="margin-top:16px">
+        <h2>Top Attractions</h2>
+        <div class="attractions-grid">
+          <article class="place">
+            <img src="https://images.unsplash.com/photo-1505765057621-73a7a9a8a7d1?auto=format&fit=crop&w=800&q=60" alt="Central Park">
+            <h3>Central Park</h3>
+            <p>A wide green oasis in the heart of the city with walking trails and performance spaces.</p>
+          </article>
+          <article class="place">
+            <img src="https://images.unsplash.com/photo-1505765057621-73a7a9a8a7d1?auto=format&fit=crop&w=800&q=60" alt="City Museum">
+            <h3>City Museum</h3>
+            <p>Modern exhibits showcasing local history, tech and art installations.</p>
+          </article>
+          <article class="place">
+            <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=60" alt="Riverside Promenade">
+            <h3>Riverside Promenade</h3>
+            <p>Scenic riverside paths, cafés and evening light displays.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="media" style="margin-top:16px">
+        <h2>Tourism Video / Weather</h2>
+        <!-- Example YouTube embed -->
+        <iframe class="iframed no-border" title="SmartCity tourism video" src="https://www.youtube.com/embed/ScMzIvxBSi4" allowfullscreen></iframe>
+      </section>
+
+      <section id="map" style="margin-top:16px">
+        <h2>Map — Explore Locations</h2>
+        <p class="small">Click a location to open inside the map below.</p>
+        <div class="map-links">
+          <a href="https://www.google.com/maps?q=Central+Park+New+York&output=embed" target="mapFrame" title="Central Park">Central Park</a>
+          <a href="https://www.google.com/maps?q=Eiffel+Tower&output=embed" target="mapFrame" title="Eiffel Tower">Eiffel Tower</a>
+          <a href="https://www.google.com/maps?q=Times+Square&output=embed" target="mapFrame" title="Times Square">Times Square</a>
+        </div>
+        <div style="margin-top:12px">
+          <iframe name="mapFrame" class="iframed no-border" title="Map Frame" src="https://www.google.com/maps?q=SmartCity&output=embed" width="100%" height="450"></iframe>
+        </div>
+      </section>
+
+      <section id="canvas" style="margin-top:16px">
+        <h2>Welcome Banner (Canvas)</h2>
+        <canvas id="welcomeCanvas" width="1000" height="120" aria-label="Welcome banner canvas"></canvas>
+        <p class="small">Canvas contains rectangle, gradient/shape and text drawn via JavaScript.</p>
+      </section>
+    </div>
+
+    <aside class="sidebar">
+      <section class="card">
+        <h3>Upcoming Events</h3>
+        <ul class="small">
+          <li>Summer Light Festival — Jun 21</li>
+          <li>Food Market Weekend — Jul 10-12</li>
+          <li>Marathon — Sep 5</li>
+        </ul>
+      </section>
+      <section class="card">
+        <h3>Quick Links</h3>
+        <ul class="small">
+          <li><a href="https://example.com/tickets">Buy Tickets</a></li>
+          <li><a href="https://example.com/transit">Transit Info</a></li>
+        </ul>
+      </section>
+      <section class="card">
+        <h3>Emergency Contacts</h3>
+        <p class="small">Police: 100<br>Ambulance: 101<br>Tourist Helpline: +1-800-555-1234</p>
+      </section>
+      <section class="card">
+        <h3>Contact</h3>
+        <p class="small">Email: <a href="mailto:info@smartcity.example">info@smartcity.example</a></p>
+      </section>
+    </aside>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 SmartCity Tourism • <a href="mailto:info@smartcity.example">Contact</a> • <a href="https://twitter.com/" target="_blank">Twitter</a> <a href="https://facebook.com/" target="_blank">Facebook</a></p>
+  </footer>
+</body>
+</html>
